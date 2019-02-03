@@ -15,7 +15,7 @@ class App extends Component {
       <React.Fragment>
         <Navbar /> {/* shouldn't be included in switch - we want to display it all the time */}
         <Switch>
-          <Route exact {/* use "exact" for the home page. Otherwis you will always be redirected to home page unless this path is included in the end */} path="/" component={ProductList} /> { /* home path - display ProductList as default page */}
+          <Route exact path="/" component={ProductList} /> { /* home path - display ProductList as default page // use "exact" for the home page. Otherwis you will always be redirected to home page unless this path is included in the end */}
           <Route path="/details" component={Details} />
           <Route path="/cart" component={Cart} />
           <Route component={Defaults} /> {/* display when page can't be found -> wrong path was inserted */}
