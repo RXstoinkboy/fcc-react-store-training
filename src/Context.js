@@ -36,10 +36,16 @@ class Context extends Component {
             })
         })
     }
-
     // if I use arrow function, I to not have to bind this
     // it is the same as using handleDetail(){}
     // and then this.handleDetail = this.handleDetail.bind(this)
+
+    // method render details about a proper item
+    getItem =(id)=>{
+        const product = this.state.products.find(item => item.id === id);
+        return product;
+    }
+
     handleDetail =()=>{
         console.log('hello from detail')
     }
