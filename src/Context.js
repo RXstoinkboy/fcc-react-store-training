@@ -17,7 +17,8 @@ class Context extends Component {
             // so we have to clone data before using it
             // probably could also use _lodash for that
             products: [],
-            detailProduct: detailProduct
+            detailProduct: detailProduct,
+            cart: []
         }
     }
     // clone products to be used in state
@@ -42,20 +43,43 @@ class Context extends Component {
 
     // method render details about a proper item
     getItem =(id)=>{
-        const product = this.state.products.find(item => item.id === id);
+        const product = this.state.products
+                            .find(item => item.id === id);
         return product;
     }
 
-    handleDetail =()=>{
-        console.log('hello from detail')
+    handleDetail =(id)=>{
+        const product = this.getItem(id);
+        this.setState(()=>{
+            return {detailProduct: product}
+        })
     }
 
     addToCart =(id)=>{
-        console.log(`hello from add to cart. Id is ${id}`)
-    }
+        let tempProducts = [...this.state.products];
+        const index = tempProducts.indexOf(this.getItem(id));
+        const product = tempProducts[index];
+        product.inCart = true;
+        product.count = 1;
+        const price = product.price;
+        product.total = price;
 
-        render() {
-            return (
+        this.setState(()=>{
+            return {
+                products: tempProducts,
+                cart: [...this.state.cart, product]
+                // we could also add current cart state to local storage 
+                // so after refreshing we do not lose out data
+            }
+        }, 
+        ()=>{
+            console.log(this.state)
+        }
+        )
+    }
+    
+    render() {
+        return (
                 <Provider value={{
                     ...this.state,
                     handleDetail: this.handleDetail,

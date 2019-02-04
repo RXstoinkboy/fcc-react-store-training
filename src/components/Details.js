@@ -20,19 +20,24 @@ class Details extends Component {
                             {/* end title */}
                             <div className="row">
                                 <div className="col-10 mx-auto col-md-6 my-3 text-capitalize">
-                                    <img src={img} alt="product" className="img-fluid"/>
+                                    <img 
+                                        src={img} 
+                                        alt="product" 
+                                        className="img-fluid"/>
                                 </div>
                                 {/* product text */}
                                 <div className="col-10 mx-auto col-md-6 my-3 text-capitalize">
                                     <h2>model: {title}</h2>
                                     <h4 className="text-title text-uppercase text-muted mt-3 mb-2">
-                                        made by: <span className="text-uppercase">
+                                        made by: 
+                                        <span className="text-uppercase">
                                             {company}
                                         </span>
                                     </h4>
                                     <h4 className="text-blue">
                                         <strong>
-                                            price: <span>$</span>
+                                            price: 
+                                                <span>$</span>
                                             {price}
                                         </strong>
                                     </h4>
