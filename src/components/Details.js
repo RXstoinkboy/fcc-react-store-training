@@ -42,6 +42,24 @@ class Details extends Component {
                                     <p className="text-muted lead">
                                         {info}
                                     </p>
+                                    {/* buttons */}
+                                    <div>
+                                        <Link to="/">
+                                            <ButtonContainer>
+                                                back to products
+                                            </ButtonContainer>
+                                        </Link>
+                                        <ButtonContainer 
+                                            cart 
+                                            // pass this prop just to set up conditional rendering for styled components
+                                            disabled={inCart?true:false}
+                                            onClick={()=>{
+                                                value.addToCart(id)
+                                            }}
+                                            >
+                                            {inCart?'inCart' : 'add to cart'}
+                                        </ButtonContainer>
+                                    </div>
                                 </div>
                             </div>
                         </div>

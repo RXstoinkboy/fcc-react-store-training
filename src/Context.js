@@ -44,8 +44,8 @@ class Context extends Component {
         console.log('hello from detail')
     }
 
-    addToCart =()=>{
-        console.log('hello from add to cart')
+    addToCart =(id)=>{
+        console.log(`hello from add to cart. Id is ${id}`)
     }
 
         render() {

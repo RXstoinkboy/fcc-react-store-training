@@ -35,7 +35,6 @@ class Product extends Component {
     }
 }
 
-
 // just to make sure that I know if there is any mistake in product data file
 Product.propTypes = {
     product: PropTypes.shape({
