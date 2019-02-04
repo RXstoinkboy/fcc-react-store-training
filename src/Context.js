@@ -12,32 +12,53 @@ class Context extends Component {
     constructor(props){
         super(props);
         this.state = {
-            products: storeProducts,
+            // products: storeProducts, - if we do it like that we create reference to original data
+            // each manipulation on state will also change original data
+            // so we have to clone data before using it
+            // probably could also use _lodash for that
+            products: [],
             detailProduct: detailProduct
         }
     }
+    // clone products to be used in state
+
+    componentDidMount(){
+        this.setProducts();
+    }
+
+    setProducts =()=>{
+        let tempProducts = [];
+        storeProducts.forEach(item => {
+            const singleItem = {...item};
+            tempProducts = [...tempProducts, singleItem];
+            this.setState(()=>{
+                return {products: tempProducts}
+            })
+        })
+    }
+
     // if I use arrow function, I to not have to bind this
     // it is the same as using handleDetail(){}
     // and then this.handleDetail = this.handleDetail.bind(this)
-handleDetail =()=>{
-    console.log('hello from detail')
-}
-
-addToCart =()=>{
-    console.log('hello from add to cart')
-}
-
-    render() {
-        return (
-            <Provider value={{
-                ...this.state,
-                handleDetail: this.handleDetail,
-                addToCart: this.addToCart
-            }}>
-                {this.props.children}
-            </Provider>
-        );
+    handleDetail =()=>{
+        console.log('hello from detail')
     }
+
+    addToCart =()=>{
+        console.log('hello from add to cart')
+    }
+
+        render() {
+            return (
+                <Provider value={{
+                    ...this.state,
+                    handleDetail: this.handleDetail,
+                    addToCart: this.addToCart
+                }}>
+                    {this.props.children}
+                </Provider>
+            );
+        }
 }
 
 export { Context, Consumer }

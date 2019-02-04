@@ -12,7 +12,7 @@ class Product extends Component {
             <div className='card'>
                 <div className="img-container p-5" onClick={()=>console.log('you clicked image container')}>
                     <Link to='/details'>
-                        <img src={img} alt="product image" className="card-img-top"/>
+                        <img src={img} alt="product" className="card-img-top"/>
                     </Link>
                     <button className="cart-btn" disabled={inCart?true:false} onClick={()=>{console.log('added to the cart')}}>
                         {inCart ? 
@@ -35,6 +35,8 @@ class Product extends Component {
     }
 }
 
+
+// just to make sure that I know if there is any mistake in product data file
 Product.propTypes = {
     product: PropTypes.shape({
         id: PropTypes.number,
