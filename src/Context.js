@@ -18,11 +18,35 @@ class Context extends Component {
             // probably could also use _lodash for that
             products: [],
             detailProduct: detailProduct,
-            cart: [],
+            cart: storeProducts, // normalnie []
             modalProduct: detailProduct,
             modalOpen: false,
+            cartSubTotal: 0,
+            cartTax: 0,
+            cartTotal: 0,
         }
     }
+
+    // cart methods
+    increment =id=>{
+        console.log(`this is incremenent`)
+    }
+    
+    decrement =id=>{
+        console.log(`this is decremenent`)
+    }
+
+    removeItem =id=>{
+        console.log(`item removed`)
+    }
+
+    clearCart =id=>{
+        console.log(`cart was cleared`)
+    }
+    
+    // cart methods end
+
+    // modal methods
     openModal = id => {
         const product = this.getItem(id);
         this.setState(()=>{
@@ -40,6 +64,7 @@ class Context extends Component {
             }
         })
     }
+    // modal methods end
 
     // clone products to be used in state
 
@@ -106,6 +131,10 @@ class Context extends Component {
                     addToCart: this.addToCart,
                     openModal: this.openModal,
                     closeModal: this.closeModal,
+                    increment: this.increment,
+                    decrement: this.decrement,
+                    removeItem: this.removeItem,
+                    clearCart: this.clearCart
                 }}>
                     {this.props.children}
                 </Provider>
