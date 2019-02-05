@@ -18,9 +18,29 @@ class Context extends Component {
             // probably could also use _lodash for that
             products: [],
             detailProduct: detailProduct,
-            cart: []
+            cart: [],
+            modalProduct: detailProduct,
+            modalOpen: false,
         }
     }
+    openModal = id => {
+        const product = this.getItem(id);
+        this.setState(()=>{
+            return {
+                modalProduct: product,
+                modalOpen: true,
+            }
+        })   
+    }
+
+    closeModal =()=>{
+        this.setState(()=>{
+            return {
+                modalOpen: false
+            }
+        })
+    }
+
     // clone products to be used in state
 
     componentDidMount(){
@@ -83,7 +103,9 @@ class Context extends Component {
                 <Provider value={{
                     ...this.state,
                     handleDetail: this.handleDetail,
-                    addToCart: this.addToCart
+                    addToCart: this.addToCart,
+                    openModal: this.openModal,
+                    closeModal: this.closeModal,
                 }}>
                     {this.props.children}
                 </Provider>

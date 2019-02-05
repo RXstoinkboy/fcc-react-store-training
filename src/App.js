@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import {Switch, Route} from 'react-router-dom'; 
-import logo from './logo.svg';
 import './App.css';
 import Navbar from './components/Navbar';
 import ProductList from './components/ProductList';
 import Defaults from './components/Defaults';
 import Details from './components/Details';
 import Cart from './components/Cart';
+import Modal from './components/Modal'
 
 
 class App extends Component {
@@ -20,6 +20,7 @@ class App extends Component {
           <Route path="/cart" component={Cart} />
           <Route component={Defaults} /> {/* display when page can't be found -> wrong path was inserted */}
         </Switch>
+        <Modal />
       </React.Fragment>
     );
   }

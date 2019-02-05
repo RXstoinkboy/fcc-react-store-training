@@ -27,7 +27,8 @@ class Product extends Component {
                             className="cart-btn" 
                             disabled={inCart?true:false} 
                             onClick={()=>{
-                                context.addToCart(id)
+                                context.addToCart(id);
+                                context.openModal(id);
                                 }}>
                             {inCart ? 
                                 (<p 
