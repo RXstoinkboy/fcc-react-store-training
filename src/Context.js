@@ -18,7 +18,7 @@ class Context extends Component {
             // probably could also use _lodash for that
             products: [],
             detailProduct: detailProduct,
-            cart: storeProducts, // normalnie []
+            cart: [],
             modalProduct: detailProduct,
             modalOpen: false,
             cartSubTotal: 0,
@@ -37,11 +37,58 @@ class Context extends Component {
     }
 
     removeItem =id=>{
-        console.log(`item removed`)
+        let tempProducts = [...this.state.products];
+        let tempCart = [...this.state.cart];
+
+        // prepare a copy of the item list without a chosem item
+        tempCart = tempCart.filter(item => item.id !== id);
+
+        // update product list
+        const index = tempProducts.indexOf(this.getItem(id));
+        let removedProduct = tempProducts[index];
+        removedProduct.inCart = false;
+        removedProduct.total = 0;
+        removedProduct.count = 0;
+
+        this.setState(()=>{
+                return {
+                    cart: [...tempCart],
+                    products: [...tempProducts]
+                }
+            },
+            ()=>{
+                this.addTotals();
+            }
+        )
     }
 
-    clearCart =id=>{
-        console.log(`cart was cleared`)
+    clearCart =()=>{
+            this.setState(()=>{
+                return {
+                    cart: []
+                }
+            },()=>{
+                this.setProducts();
+                this.addTotals()
+            }
+            // after clearing cart, refresh item list to have fresh state
+            // also refresh total values
+        )
+    }
+
+    addTotals =()=>{
+        let subTotal = 0;
+        this.state.cart.map(item => (subTotal += item.total));
+        const tempTax = subTotal * 0.1;
+        const tax = parseFloat(tempTax.toFixed(2));
+        const total = subTotal + tax;
+        this.setState(()=>{
+            return {
+                cartSubTotal: subTotal,
+                cartTax: tax,
+                cartTotal: total
+            }
+        })
     }
     
     // cart methods end
@@ -110,16 +157,16 @@ class Context extends Component {
         product.total = price;
 
         this.setState(()=>{
-            return {
-                products: tempProducts,
-                cart: [...this.state.cart, product]
-                // we could also add current cart state to local storage 
-                // so after refreshing we do not lose out data
+                return {
+                    products: tempProducts,
+                    cart: [...this.state.cart, product]
+                    // we could also add current cart state to local storage 
+                    // so after refreshing we do not lose out data
+                }
+            }, 
+            ()=>{
+                this.addTotals();
             }
-        }, 
-        ()=>{
-            console.log(this.state)
-        }
         )
     }
     
